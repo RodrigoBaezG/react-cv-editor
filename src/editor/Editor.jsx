@@ -28,12 +28,12 @@ function Editor() {
 
             <div className="flex justify-between items-center border-b pb-4 mb-4">
                 <h2 className="text-3xl font-bold text-blue-800">
-                    ✏️ Editor de Currículum
+                    ✏️ Cv editor
                 </h2>
 
                 <Button onClick={handleExportPdf} variant="primary" className="shadow-lg">
                     <FaDownload className="inline mr-2" />
-                    Exportar a PDF
+                    Export to PDF
                 </Button>
             </div>
 
@@ -51,7 +51,7 @@ function Editor() {
 
             <div className='pt-4 border-t'>
                 <p className='text-sm text-gray-500'>
-                    ¡El proyecto está completo! Tu portafolio ahora tiene una herramienta funcional.
+                    ¡The project is complete! Your portfolio now has a functional tool.
                 </p>
             </div>
 

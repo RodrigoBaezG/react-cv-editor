@@ -40,7 +40,7 @@ function EducationForm() {
     return (
         <div className="space-y-6">
             <h3 className="text-xl font-semibold border-b pb-2 text-gray-700">
-                Formación Académica
+                Academic formation
             </h3>
 
             {/* 1. Lista de Elementos Actuales */}
@@ -52,15 +52,15 @@ function EducationForm() {
 
             {/* 2. Formulario para Añadir Nuevo Elemento */}
             <form onSubmit={handleSubmit} className="p-4 border-2 border-dashed border-gray-300 rounded-lg bg-gray-50">
-                <h4 className="text-md font-semibold mb-3 text-gray-600">Añadir Nueva Formación</h4>
+                <h4 className="text-md font-semibold mb-3 text-gray-600">Add New Formation</h4>
 
-                <InputField label="Título" name="titulo" value={newItem.titulo} onChange={handleChange} />
-                <InputField label="Institución" name="institucion" value={newItem.institucion} onChange={handleChange} />
-                <InputField label="Fechas" name="fechas" value={newItem.fechas} onChange={handleChange} />
+                <InputField label="Title" name="titulo" value={newItem.titulo} onChange={handleChange} />
+                <InputField label="Institution" name="institucion" value={newItem.institucion} onChange={handleChange} />
+                <InputField label="Dates" name="fechas" value={newItem.fechas} onChange={handleChange} />
 
                 <div className="flex justify-end mt-4">
                     <Button type="submit" variant="primary">
-                        <FaPlus className="inline mr-1" /> Añadir Formación
+                        <FaPlus className="inline mr-1" /> Add Formation
                     </Button>
                 </div>
             </form>

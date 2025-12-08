@@ -43,13 +43,13 @@ function EducationItem({ item }) {
     if (isEditing) {
         return (
             <div className="p-4 border border-blue-200 bg-blue-50 rounded-lg mb-4 shadow-md">
-                <h4 className="text-md font-semibold mb-2">Editando Educación</h4>
-                <InputField label="Título (Ej: Grado en Ingeniería)" name="titulo" value={formData.titulo} onChange={handleChange} />
-                <InputField label="Institución / Universidad" name="institucion" value={formData.institucion} onChange={handleChange} />
-                <InputField label="Fechas de Inicio y Fin" name="fechas" value={formData.fechas} onChange={handleChange} />
+                <h4 className="text-md font-semibold mb-2">Editing Education</h4>
+                <InputField label="Title (Ej: Grado en Ingeniería)" name="titulo" value={formData.titulo} onChange={handleChange} />
+                <InputField label="Institution / University" name="institucion" value={formData.institucion} onChange={handleChange} />
+                <InputField label="Dates of Start and End" name="fechas" value={formData.fechas} onChange={handleChange} />
                 <div className="flex justify-end space-x-2 mt-4">
-                    <Button variant="secondary" onClick={() => setIsEditing(false)}><FaTimes className="inline mr-1" /> Cancelar</Button>
-                    <Button variant="primary" onClick={handleSave}><FaSave className="inline mr-1" /> Guardar</Button>
+                    <Button variant="secondary" onClick={() => setIsEditing(false)}><FaTimes className="inline mr-1" /> Cancel</Button>
+                    <Button variant="primary" onClick={handleSave}><FaSave className="inline mr-1" /> Save</Button>
                 </div>
             </div>
         );

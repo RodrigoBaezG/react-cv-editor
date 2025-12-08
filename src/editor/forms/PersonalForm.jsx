@@ -25,26 +25,26 @@ function PersonalForm() {
     return (
         <div className="space-y-4">
             <h3 className="text-xl font-semibold border-b pb-2 text-gray-700">
-                Información Personal
+                Personal Information
             </h3>
 
-            {/* Fila 1: Nombre y Título */}
+            {/* Row 1: Name and Title */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <InputField
-                    label="Nombre Completo"
+                    label="Full Name"
                     name="nombre"
                     value={personal.nombre}
                     onChange={handleChange}
                 />
                 <InputField
-                    label="Puesto Deseado/Título"
+                    label="Job Title"
                     name="titulo"
                     value={personal.titulo}
                     onChange={handleChange}
                 />
             </div>
 
-            {/* Fila 2: Contacto */}
+            {/* Row 2: Contact */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <InputField
                     label="Email"
@@ -54,7 +54,7 @@ function PersonalForm() {
                     onChange={handleChange}
                 />
                 <InputField
-                    label="Teléfono"
+                    label="Phone"
                     name="telefono"
                     type="tel"
                     value={personal.telefono}
@@ -68,9 +68,9 @@ function PersonalForm() {
                 />
             </div>
 
-            {/* Fila 3: Resumen Profesional */}
+            {/* Row 3: Professional Summary */}
             <TextareaField
-                label="Resumen Profesional"
+                label="Professional Summary"
                 name="resumen"
                 value={personal.resumen}
                 onChange={handleChange}

@@ -30,11 +30,11 @@ function Template1() {
 
             {/* 2. SECCIÓN EXPERIENCIA (Mapeamos el array del estado) */}
             <section>
-                <h3 className="text-lg font-bold text-[#1D4ED8] border-b border-[#1D4ED8] mb-2">EXPERIENCIA</h3>
+                <h3 className="text-lg font-bold text-[#1D4ED8] border-b border-[#1D4ED8] mb-2">EXPERIENCE</h3>
                 {experiencia.map((item) => (
                     <div key={item.id} className="mb-3">
                         <div className="flex justify-between font-semibold">
-                            <span>{item.puesto} en {item.empresa}</span>
+                            <span>{item.puesto} at {item.empresa}</span>
                             <span>{item.fechas}</span>
                         </div>
                         <p className="text-xs mt-1 text-[#1D4ED8]">{item.descripcion}</p>
@@ -42,16 +42,16 @@ function Template1() {
                 ))}
             </section>
 
-            {/* 3. Placeholder para Educación y Habilidades */}
+            {/* 3. Placeholder for Education and Skills */}
             <section className='mt-6'>
-                <h3 className="text-lg font-bold text-[#1D4ED8] border-b border-[#1D4ED8] mb-2">EDUCACIÓN</h3>
+                <h3 className="text-lg font-bold text-[#1D4ED8] border-b border-[#1D4ED8] mb-2">EDUCATION</h3>
                 {state.educacion.map(edu => (
-                    <p key={edu.id} className='text-sm'>{edu.titulo} en {edu.institucion} ({edu.fechas})</p>
+                    <p key={edu.id} className='text-sm'>{edu.titulo} at {edu.institucion} ({edu.fechas})</p>
                 ))}
             </section>
 
             <section className='mt-6'>
-                <h3 className="text-lg font-bold text-[#1D4ED8] border-b border-[#1D4ED8] mb-2">HABILIDADES</h3>
+                <h3 className="text-lg font-bold text-[#1D4ED8] border-b border-[#1D4ED8] mb-2">SKILLS</h3>
                 <p className='text-sm'>{state.habilidades}</p>
             </section>
         </div>

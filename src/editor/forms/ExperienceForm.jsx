@@ -45,7 +45,7 @@ function ExperienceForm() {
     return (
         <div className="space-y-6">
             <h3 className="text-xl font-semibold border-b pb-2 text-gray-700">
-                Experiencia Laboral
+                Work Experience
             </h3>
 
             {/* 1. Lista de Experiencias Actuales (Recorre el estado) */}
@@ -57,18 +57,18 @@ function ExperienceForm() {
 
             {/* 2. Formulario para Añadir Nueva Experiencia */}
             <form onSubmit={handleSubmit} className="p-4 border-2 border-dashed border-gray-300 rounded-lg bg-gray-50">
-                <h4 className="text-md font-semibold mb-3 text-gray-600">Añadir Nueva Experiencia</h4>
+                <h4 className="text-md font-semibold mb-3 text-gray-600">Add New Experience</h4>
 
                 <div className="grid grid-cols-2 gap-4 mb-4">
-                    <InputField label="Puesto" name="puesto" value={newItem.puesto} onChange={handleChange} />
-                    <InputField label="Empresa" name="empresa" value={newItem.empresa} onChange={handleChange} />
+                    <InputField label="Position" name="puesto" value={newItem.puesto} onChange={handleChange} />
+                    <InputField label="Company" name="empresa" value={newItem.empresa} onChange={handleChange} />
                 </div>
-                <InputField label="Fechas (Ej: 2020 - 2023)" name="fechas" value={newItem.fechas} onChange={handleChange} />
-                <TextareaField label="Descripción de Responsabilidades" name="descripcion" value={newItem.descripcion} onChange={handleChange} rows={2} />
+                <InputField label="Dates (Ej: 2020 - 2023)" name="fechas" value={newItem.fechas} onChange={handleChange} />
+                <TextareaField label="Description of Responsibilities" name="descripcion" value={newItem.descripcion} onChange={handleChange} rows={2} />
 
                 <div className="flex justify-end mt-4">
                     <Button type="submit" variant="primary">
-                        <FaPlus className="inline mr-1" /> Añadir Experiencia
+                        <FaPlus className="inline mr-1" /> Add Experience
                     </Button>
                 </div>
             </form>

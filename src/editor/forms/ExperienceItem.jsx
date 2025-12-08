@@ -33,7 +33,7 @@ function ExperienceItem({ item }) {
 
     // Envía la acción de eliminación al contexto
     const handleDelete = () => {
-        if (window.confirm('¿Estás seguro de que quieres eliminar esta experiencia?')) {
+        if (window.confirm('Are you sure you want to delete this experience?')) {
             dispatch({
                 type: 'DELETE_ITEM',
                 payload: {
@@ -48,17 +48,17 @@ function ExperienceItem({ item }) {
         // Modo de Edición: Muestra los campos de entrada
         return (
             <div className="p-4 border border-blue-200 bg-blue-50 rounded-lg mb-4 shadow-md">
-                <h4 className="text-md font-semibold mb-2">Editando Experiencia</h4>
-                <InputField label="Puesto" name="puesto" value={formData.puesto} onChange={handleChange} />
-                <InputField label="Empresa" name="empresa" value={formData.empresa} onChange={handleChange} />
-                <InputField label="Fechas (Ej: 2020 - 2023)" name="fechas" value={formData.fechas} onChange={handleChange} />
-                <TextareaField label="Descripción de Responsabilidades" name="descripcion" value={formData.descripcion} onChange={handleChange} rows={3} />
+                <h4 className="text-md font-semibold mb-2">Editing Experience</h4>
+                <InputField label="Position" name="puesto" value={formData.puesto} onChange={handleChange} />
+                <InputField label="Company" name="empresa" value={formData.empresa} onChange={handleChange} />
+                <InputField label="Dates (Ej: 2020 - 2023)" name="fechas" value={formData.fechas} onChange={handleChange} />
+                <TextareaField label="Description of Responsibilities" name="descripcion" value={formData.descripcion} onChange={handleChange} rows={3} />
                 <div className="flex justify-end space-x-2 mt-4">
                     <Button variant="secondary" onClick={() => setIsEditing(false)}>
-                        <FaTimes className="inline mr-1" /> Cancelar
+                        <FaTimes className="inline mr-1" /> Cancel
                     </Button>
                     <Button variant="primary" onClick={handleSave}>
-                        <FaSave className="inline mr-1" /> Guardar
+                        <FaSave className="inline mr-1" /> Save
                     </Button>
                 </div>
             </div>
@@ -69,7 +69,7 @@ function ExperienceItem({ item }) {
     return (
         <div className="p-3 border border-gray-200 rounded-lg mb-2 flex justify-between items-center bg-white shadow-sm hover:bg-gray-50 transition">
             <div>
-                <h4 className="font-semibold text-gray-800">{item.puesto} en {item.empresa}</h4>
+                <h4 className="font-semibold text-gray-800">{item.puesto} at {item.empresa}</h4>
                 <p className="text-xs text-gray-500">{item.fechas}</p>
             </div>
             <div className="space-x-2 flex">
