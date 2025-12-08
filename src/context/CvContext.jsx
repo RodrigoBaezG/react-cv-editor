@@ -5,27 +5,27 @@ import React, { createContext, useReducer } from 'react';
 // 1. Estado Inicial (Initial State)
 const initialState = {
     personal: {
-        nombre: 'Tu Nombre',
-        titulo: 'Puesto Deseado (Ej: Desarrollador Frontend)',
-        email: 'email@ejemplo.com',
+        nombre: 'Your Name',
+        titulo: 'Job Title (e.g: Frontend Developer)',
+        email: 'email@example.com',
         telefono: '+34 123 456 789',
         linkedin: 'linkedin.com/in/tuperfil',
-        resumen: 'Soy un desarrollador de software entusiasta con pasión por React y la construcción de interfaces de usuario funcionales y atractivas. Busco mi primer rol profesional.',
+        resumen: 'I am an enthusiastic software developer passionate about React and building functional and attractive user interfaces. I am looking for my first professional role.',
     },
     experiencia: [
         {
             id: 1,
-            puesto: 'Proyecto de Portafolio: Editor de CV',
+            puesto: 'Portfolio Project: CV Editor',
             empresa: 'Personal',
             fechas: '2025',
-            descripcion: 'Diseño e implementación de una aplicación full-stack con React y useReducer. Demostración de gestión de estados complejos y exportación a PDF.',
+            descripcion: 'Design and implementation of a full-stack application with React and useReducer. Demonstration of complex state management and PDF export.',
         },
     ],
     educacion: [
         {
             id: 2,
-            institucion: 'Universidad Tecnológica',
-            titulo: 'Grado en Ingeniería Informática',
+            institucion: 'Technical University',
+            titulo: 'Bachelor of Computer Science',
             fechas: '2021 - 2025',
         },
     ],
