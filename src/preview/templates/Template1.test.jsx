@@ -35,7 +35,8 @@ describe('Template1', () => {
 
     it('renders experience entry', () => {
         renderWithMock(<Template1 />);
-        expect(screen.getByText(/Dev at Corp/i)).toBeInTheDocument();
+        expect(screen.getByText('Dev')).toBeInTheDocument();
+        expect(screen.getByText('Corp')).toBeInTheDocument();
     });
 
     it('renders education entry', () => {

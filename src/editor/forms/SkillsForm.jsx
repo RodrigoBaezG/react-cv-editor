@@ -12,19 +12,19 @@ function SkillsForm() {
     };
 
     return (
-        <div className="space-y-4">
-            <h3 className="text-xl font-semibold border-b pb-2 text-gray-700 pl-3 border-l-4 border-l-blue-500">
+        <section className="px-6 py-5 space-y-4">
+            <h3 className="text-[11px] font-semibold uppercase tracking-widest text-slate-400">
                 Skills
             </h3>
 
             <TextareaField
-                label="List your skills separated by commas (e.g: React, Node.js, Python, Git)"
+                label="List your skills separated by commas"
                 name="habilidades"
                 value={state.habilidades}
                 onChange={handleChange}
                 rows={3}
             />
-        </div>
+        </section>
     );
 }
 

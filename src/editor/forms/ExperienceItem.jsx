@@ -5,7 +5,7 @@ import InputField from '../../components/InputField';
 import TextareaField from '../../components/TextareaField';
 import Button from '../../components/Button';
 import { useCv } from '../../context/useCv';
-import { FaTrash, FaEdit, FaSave, FaTimes, FaExclamationTriangle } from 'react-icons/fa';
+import { FaTrash, FaEdit, FaSave, FaTimes } from 'react-icons/fa';
 
 function ExperienceItem({ item }) {
     const { dispatch } = useCv();
@@ -39,18 +39,17 @@ function ExperienceItem({ item }) {
 
     if (isEditing) {
         return (
-            <div className="p-4 border border-blue-200 bg-blue-50 rounded-lg mb-4 shadow-md">
-                <h4 className="text-md font-semibold mb-2">Editing Experience</h4>
+            <div className="p-4 border border-slate-200 bg-slate-50 rounded-lg space-y-2">
                 <InputField label="Position" name="puesto" value={formData.puesto} onChange={handleChange} />
                 <InputField label="Company" name="empresa" value={formData.empresa} onChange={handleChange} />
-                <InputField label="Dates (e.g: 2020 - 2023)" name="fechas" value={formData.fechas} onChange={handleChange} />
-                <TextareaField label="Description of Responsibilities" name="descripcion" value={formData.descripcion} onChange={handleChange} rows={3} />
-                <div className="flex justify-end space-x-2 mt-4">
+                <InputField label="Dates" name="fechas" value={formData.fechas} onChange={handleChange} />
+                <TextareaField label="Description" name="descripcion" value={formData.descripcion} onChange={handleChange} rows={3} />
+                <div className="flex justify-end gap-2 pt-1">
                     <Button variant="secondary" onClick={() => setIsEditing(false)}>
-                        <FaTimes className="inline mr-1" /> Cancel
+                        <FaTimes className="inline mr-1 text-[10px]" /> Cancel
                     </Button>
                     <Button variant="primary" onClick={handleSave}>
-                        <FaSave className="inline mr-1" /> Save
+                        <FaSave className="inline mr-1 text-[10px]" /> Save
                     </Button>
                 </div>
             </div>
@@ -58,35 +57,44 @@ function ExperienceItem({ item }) {
     }
 
     return (
-        <div className="p-3 border border-gray-200 rounded-lg mb-2 bg-white shadow-sm hover:bg-gray-50 transition">
-            <div className="flex justify-between items-center">
-                <div>
-                    <h4 className="font-semibold text-gray-800">{item.puesto} at {item.empresa}</h4>
-                    <p className="text-xs text-gray-500">{item.fechas}</p>
+        <div className="px-3 py-2.5 border border-slate-200 rounded-lg bg-white hover:border-slate-300 transition-colors">
+            <div className="flex items-center justify-between">
+                <div className="min-w-0">
+                    <p className="text-sm font-medium text-slate-800 truncate">{item.puesto}</p>
+                    <p className="text-xs text-slate-400">{item.empresa} · {item.fechas}</p>
                 </div>
-                <div className="space-x-2 flex">
-                    <Button variant="secondary" onClick={() => setIsEditing(true)} className="p-2">
-                        <FaEdit />
-                    </Button>
-                    <Button variant="danger" onClick={() => setConfirmDelete(true)} className="p-2">
-                        <FaTrash />
-                    </Button>
+                <div className="flex gap-1 ml-2 shrink-0">
+                    <button
+                        onClick={() => { setIsEditing(true); setConfirmDelete(false); }}
+                        className="p-1.5 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded transition-colors"
+                    >
+                        <FaEdit className="text-xs" />
+                    </button>
+                    <button
+                        onClick={() => setConfirmDelete(true)}
+                        className="p-1.5 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded transition-colors"
+                    >
+                        <FaTrash className="text-xs" />
+                    </button>
                 </div>
             </div>
 
             {confirmDelete && (
-                <div className="mt-3 p-3 bg-red-50 border border-red-200 rounded-md flex items-center justify-between gap-3">
-                    <span className="text-sm text-red-700 flex items-center gap-2">
-                        <FaExclamationTriangle className="shrink-0" />
-                        Delete this experience?
-                    </span>
-                    <div className="flex gap-2 shrink-0">
-                        <Button variant="secondary" onClick={() => setConfirmDelete(false)} className="py-1 px-2 text-xs">
+                <div className="mt-2 pt-2 border-t border-slate-100 flex items-center justify-between gap-3">
+                    <span className="text-xs text-slate-500">Remove this entry?</span>
+                    <div className="flex gap-2">
+                        <button
+                            onClick={() => setConfirmDelete(false)}
+                            className="text-xs text-slate-500 hover:text-slate-700 px-2 py-1 rounded hover:bg-slate-100 transition-colors"
+                        >
                             Cancel
-                        </Button>
-                        <Button variant="danger" onClick={handleDelete} className="py-1 px-2 text-xs">
-                            Delete
-                        </Button>
+                        </button>
+                        <button
+                            onClick={handleDelete}
+                            className="text-xs text-red-600 hover:text-red-700 px-2 py-1 rounded hover:bg-red-50 transition-colors font-medium"
+                        >
+                            Remove
+                        </button>
                     </div>
                 </div>
             )}

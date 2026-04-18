@@ -16,22 +16,23 @@ describe('ExperienceForm', () => {
 
     it('shows add button', () => {
         renderWithContext(<ExperienceForm />);
-        expect(screen.getByRole('button', { name: /add experience/i })).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: /^add$/i })).toBeInTheDocument();
     });
 
     it('does not add item when required fields are empty', async () => {
         renderWithContext(<ExperienceForm />);
-        const initialItems = screen.queryAllByRole('button', { name: /edit/i }).length;
-        await userEvent.click(screen.getByRole('button', { name: /add experience/i }));
-        expect(screen.queryAllByRole('button', { name: /edit/i })).toHaveLength(initialItems);
+        const before = screen.queryAllByText(/position/i).length;
+        await userEvent.click(screen.getByRole('button', { name: /^add$/i }));
+        expect(screen.queryAllByText(/position/i)).toHaveLength(before);
     });
 
     it('adds a new item when position and company are filled', async () => {
         renderWithContext(<ExperienceForm />);
         await userEvent.type(screen.getByLabelText(/position/i), 'Frontend Dev');
         await userEvent.type(screen.getByLabelText(/company/i), 'ACME Corp');
-        await userEvent.click(screen.getByRole('button', { name: /add experience/i }));
-        expect(screen.getByText(/Frontend Dev at ACME Corp/i)).toBeInTheDocument();
+        await userEvent.click(screen.getByRole('button', { name: /^add$/i }));
+        expect(screen.getByText('Frontend Dev')).toBeInTheDocument();
+        expect(screen.getByText(/ACME Corp/)).toBeInTheDocument();
     });
 
     it('clears the form after adding an item', async () => {
@@ -39,7 +40,7 @@ describe('ExperienceForm', () => {
         const positionInput = screen.getByLabelText(/position/i);
         await userEvent.type(positionInput, 'Dev');
         await userEvent.type(screen.getByLabelText(/company/i), 'Co');
-        await userEvent.click(screen.getByRole('button', { name: /add experience/i }));
+        await userEvent.click(screen.getByRole('button', { name: /^add$/i }));
         expect(positionInput).toHaveValue('');
     });
 });

@@ -27,22 +27,22 @@ function ExtrasForm() {
     };
 
     return (
-        <div className="space-y-6">
-            <h3 className="text-xl font-semibold border-b pb-2 text-gray-700 pl-3 border-l-4 border-l-blue-500">
-                Languages & Other
+        <section className="px-6 py-5 space-y-4">
+            <h3 className="text-[11px] font-semibold uppercase tracking-widest text-slate-400">
+                Additional
             </h3>
 
-            <div className="space-y-3">
+            <div className="space-y-2">
                 {state.extras.map((item) => (
                     <ExtrasItem key={item.id} item={item} />
                 ))}
             </div>
 
-            <form onSubmit={handleSubmit} className="p-4 border-2 border-dashed border-gray-300 rounded-lg bg-gray-50">
-                <h4 className="text-md font-semibold mb-3 text-gray-600">Add New Entry</h4>
+            <form onSubmit={handleSubmit} className="p-4 border border-dashed border-slate-300 rounded-lg bg-slate-50 space-y-3">
+                <p className="text-xs font-medium text-slate-500">Add Entry</p>
 
                 <InputField
-                    label="Category (e.g: Languages, Certifications, Courses)"
+                    label="Category (e.g: Languages, Certifications)"
                     name="categoria"
                     value={newItem.categoria}
                     onChange={handleChange}
@@ -52,16 +52,15 @@ function ExtrasForm() {
                     name="descripcion"
                     value={newItem.descripcion}
                     onChange={handleChange}
-                    placeholder="e.g: English (C1), French (B2)"
                 />
 
-                <div className="flex justify-end mt-4">
+                <div className="flex justify-end">
                     <Button type="submit" variant="primary">
-                        <FaPlus className="inline mr-1" /> Add Entry
+                        <FaPlus className="inline mr-1.5 text-[10px]" /> Add
                     </Button>
                 </div>
             </form>
-        </div>
+        </section>
     );
 }
 
