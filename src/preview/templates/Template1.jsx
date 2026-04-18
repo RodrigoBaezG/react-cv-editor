@@ -5,7 +5,7 @@ import { useCv } from '../../context/useCv';
 
 function Template1() {
     const { state } = useCv();
-    const { personal, experiencia, educacion, habilidades } = state;
+    const { personal, experiencia, educacion, habilidades, extras } = state;
 
     return (
         <div id="cv-preview-template" className="bg-white p-8 shadow-2xl min-h-[842px] max-w-[595px] mx-auto text-sm text-[#1F2937]">
@@ -56,12 +56,27 @@ function Template1() {
             </section>
 
             {/* Skills */}
-            <section>
+            <section className="mb-5">
                 <h3 className="text-base font-bold text-[#1D4ED8] border-b-2 border-[#1D4ED8] mb-3 pb-1 uppercase tracking-wide">
                     Skills
                 </h3>
                 <p className="text-[#374151]">{habilidades}</p>
             </section>
+
+            {/* Extras */}
+            {extras.length > 0 && (
+                <section>
+                    <h3 className="text-base font-bold text-[#1D4ED8] border-b-2 border-[#1D4ED8] mb-3 pb-1 uppercase tracking-wide">
+                        Languages & Other
+                    </h3>
+                    {extras.map((item) => (
+                        <div key={item.id} className="mb-2">
+                            <span className="font-semibold text-[#1F2937]">{item.categoria}: </span>
+                            <span className="text-[#374151]">{item.descripcion}</span>
+                        </div>
+                    ))}
+                </section>
+            )}
         </div>
     );
 }

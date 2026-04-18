@@ -5,6 +5,7 @@ import PersonalForm from './forms/PersonalForm';
 import ExperienceForm from './forms/ExperienceForm';
 import EducationForm from './forms/EducationForm';
 import SkillsForm from './forms/SkillsForm';
+import ExtrasForm from './forms/ExtrasForm';
 import Button from '../components/Button';
 import html2pdf from 'html2pdf.js';
 import { FaDownload, FaPencilAlt, FaCheck, FaUndo } from 'react-icons/fa';
@@ -69,6 +70,7 @@ function Editor() {
             <ExperienceForm />
             <EducationForm />
             <SkillsForm />
+            <ExtrasForm />
         </div>
     );
 }

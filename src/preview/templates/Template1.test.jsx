@@ -15,6 +15,7 @@ const mockState = {
     experiencia: [{ id: 1, puesto: 'Dev', empresa: 'Corp', fechas: '2023', descripcion: 'Built stuff' }],
     educacion: [{ id: 2, titulo: 'BSc', institucion: 'Uni', fechas: '2020' }],
     habilidades: 'React, TS',
+    extras: [{ id: 3, categoria: 'Languages', descripcion: 'English (C1)' }],
 };
 
 function renderWithMock(ui) {

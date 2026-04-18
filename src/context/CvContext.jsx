@@ -31,6 +31,9 @@ export const initialState = {
         },
     ],
     habilidades: 'React, JavaScript (ES6+), HTML, CSS/Tailwind, Git, APIs REST',
+    extras: [
+        { id: 3, categoria: 'Languages', descripcion: 'English (C1), Spanish (Native)' },
+    ],
 };
 
 function loadState() {
