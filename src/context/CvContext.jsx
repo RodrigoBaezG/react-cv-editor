@@ -1,9 +1,10 @@
 // src/context/CvContext.jsx
 
-import React, { createContext, useReducer } from 'react';
+import React, { createContext, useReducer, useEffect } from 'react';
 
-// 1. Estado Inicial (Initial State)
-const initialState = {
+const STORAGE_KEY = 'mi-cv-editor-state';
+
+export const initialState = {
     personal: {
         nombre: 'Your Name',
         titulo: 'Job Title (e.g: Frontend Developer)',
@@ -32,11 +33,18 @@ const initialState = {
     habilidades: 'React, JavaScript (ES6+), HTML, CSS/Tailwind, Git, APIs REST',
 };
 
-// La función Reducer
-const cvReducer = (state, action) => {
+function loadState() {
+    try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        return raw ? JSON.parse(raw) : initialState;
+    } catch {
+        return initialState;
+    }
+}
+
+export const cvReducer = (state, action) => {
     switch (action.type) {
 
-        // 1. Actualiza campos simples (personal, habilidades)
         case 'UPDATE_PERSONAL_FIELD':
             return {
                 ...state,
@@ -46,18 +54,20 @@ const cvReducer = (state, action) => {
                 },
             };
 
-        // 2. Añade un nuevo elemento (Experiencia o Educación)
-        case 'ADD_ITEM':
+        case 'UPDATE_SKILLS':
+            return { ...state, habilidades: action.payload };
+
+        case 'ADD_ITEM': {
             const newItem = {
                 ...action.payload.data,
-                id: Date.now(), // Asigna un ID único
+                id: Date.now(),
             };
             return {
                 ...state,
                 [action.payload.section]: [...state[action.payload.section], newItem],
             };
+        }
 
-        // 3. Edita un elemento existente (Experiencia o Educación)
         case 'EDIT_ITEM':
             return {
                 ...state,
@@ -66,7 +76,6 @@ const cvReducer = (state, action) => {
                 ),
             };
 
-        // 4. Elimina un elemento (Experiencia o Educación)
         case 'DELETE_ITEM':
             return {
                 ...state,
@@ -75,17 +84,26 @@ const cvReducer = (state, action) => {
                 ),
             };
 
+        case 'RESET':
+            return initialState;
+
         default:
             return state;
     }
 };
 
-// 2. Definir el Contexto y el Proveedor
-
-export const CvContext = createContext(initialState);
+export const CvContext = createContext(null);
 
 export const CvProvider = ({ children }) => {
-    const [state, dispatch] = useReducer(cvReducer, initialState);
+    const [state, dispatch] = useReducer(cvReducer, undefined, loadState);
+
+    useEffect(() => {
+        try {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        } catch {
+            // storage quota exceeded — fail silently
+        }
+    }, [state]);
 
     return (
         <CvContext.Provider value={{ state, dispatch }}>

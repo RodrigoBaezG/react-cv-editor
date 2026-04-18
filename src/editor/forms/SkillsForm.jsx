@@ -1,30 +1,24 @@
 // src/editor/forms/SkillsForm.jsx
 
-import React, { useContext } from 'react';
+import React from 'react';
 import TextareaField from '../../components/TextareaField';
-import { CvContext } from '../../context/CvContext';
+import { useCv } from '../../context/useCv';
 
 function SkillsForm() {
-    const { state, dispatch } = useContext(CvContext);
+    const { state, dispatch } = useCv();
 
     const handleChange = (e) => {
-        dispatch({
-            type: 'UPDATE_PERSONAL_FIELD',
-            payload: {
-                key: 'habilidades',
-                value: e.target.value,
-            },
-        });
+        dispatch({ type: 'UPDATE_SKILLS', payload: e.target.value });
     };
 
     return (
         <div className="space-y-4">
-            <h3 className="text-xl font-semibold border-b pb-2 text-gray-700">
+            <h3 className="text-xl font-semibold border-b pb-2 text-gray-700 pl-3 border-l-4 border-l-blue-500">
                 Skills
             </h3>
 
             <TextareaField
-                label="List your skills separated by commas (Ej: React, Node.js, Python, Git)"
+                label="List your skills separated by commas (e.g: React, Node.js, Python, Git)"
                 name="habilidades"
                 value={state.habilidades}
                 onChange={handleChange}

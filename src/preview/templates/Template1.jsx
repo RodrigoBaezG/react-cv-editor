@@ -1,58 +1,66 @@
 // src/preview/templates/Template1.jsx
 
-import React, { useContext } from 'react';
-import { CvContext } from '../../context/CvContext'; // Importar el Contexto
+import React from 'react';
+import { useCv } from '../../context/useCv';
 
 function Template1() {
-    // 1. Acceder al estado global
-    const { state } = useContext(CvContext);
-    const { personal, experiencia } = state;
+    const { state } = useCv();
+    const { personal, experiencia, educacion, habilidades } = state;
 
     return (
-        // ID necesario para la exportación a PDF
-        <div id="cv-preview-template" className="bg-white text-[#1D4ED8] p-8 shadow-2xl min-h-[842px] max-w-[595px] mx-auto text-sm">
+        <div id="cv-preview-template" className="bg-white p-8 shadow-2xl min-h-[842px] max-w-[595px] mx-auto text-sm text-[#1F2937]">
 
-            {/* 1. SECCIÓN PERSONAL */}
-            <header className="border-b-4 border-[#1D4ED8] pb-2 mb-4">
-                <h1 className="text-4xl font-black text-[#1D4ED8] uppercase">{personal.nombre}</h1>
-                <h2 className="text-lg font-medium text-[#1D4ED8]">{personal.titulo}</h2>
-                <div className="text-xs mt-1 space-x-3">
-                    <span>📧 {personal.email}</span>
-                    <span>📞 {personal.telefono}</span>
+            {/* Header band */}
+            <header className="bg-[#1D4ED8] text-white px-8 py-6 -mx-8 -mt-8 mb-6">
+                <h1 className="text-4xl font-black uppercase tracking-wide">{personal.nombre}</h1>
+                <h2 className="text-base font-medium opacity-90 mt-1">{personal.titulo}</h2>
+                <div className="flex gap-4 text-xs mt-3 opacity-80 flex-wrap">
+                    <span>✉ {personal.email}</span>
+                    <span>✆ {personal.telefono}</span>
                     <span>🔗 {personal.linkedin}</span>
                 </div>
             </header>
 
-            {/* Resumen */}
-            <section className="mb-4">
-                <p className="text-[#1D4ED8] text-sm">{personal.resumen}</p>
+            {/* Summary */}
+            <section className="mb-5">
+                <p className="text-[#374151] leading-relaxed">{personal.resumen}</p>
             </section>
 
-            {/* 2. SECCIÓN EXPERIENCIA (Mapeamos el array del estado) */}
-            <section>
-                <h3 className="text-lg font-bold text-[#1D4ED8] border-b border-[#1D4ED8] mb-2">EXPERIENCE</h3>
+            {/* Experience */}
+            <section className="mb-5">
+                <h3 className="text-base font-bold text-[#1D4ED8] border-b-2 border-[#1D4ED8] mb-3 pb-1 uppercase tracking-wide">
+                    Experience
+                </h3>
                 {experiencia.map((item) => (
-                    <div key={item.id} className="mb-3">
-                        <div className="flex justify-between font-semibold">
-                            <span>{item.puesto} at {item.empresa}</span>
-                            <span>{item.fechas}</span>
+                    <div key={item.id} className="mb-4">
+                        <div className="flex justify-between">
+                            <span className="font-semibold text-[#1F2937]">{item.puesto} at {item.empresa}</span>
+                            <span className="text-[#6B7280] text-xs">{item.fechas}</span>
                         </div>
-                        <p className="text-xs mt-1 text-[#1D4ED8]">{item.descripcion}</p>
+                        <p className="text-xs mt-1 text-[#374151] leading-relaxed">{item.descripcion}</p>
                     </div>
                 ))}
             </section>
 
-            {/* 3. Placeholder for Education and Skills */}
-            <section className='mt-6'>
-                <h3 className="text-lg font-bold text-[#1D4ED8] border-b border-[#1D4ED8] mb-2">EDUCATION</h3>
-                {state.educacion.map(edu => (
-                    <p key={edu.id} className='text-sm'>{edu.titulo} at {edu.institucion} ({edu.fechas})</p>
+            {/* Education */}
+            <section className="mb-5">
+                <h3 className="text-base font-bold text-[#1D4ED8] border-b-2 border-[#1D4ED8] mb-3 pb-1 uppercase tracking-wide">
+                    Education
+                </h3>
+                {educacion.map((edu) => (
+                    <div key={edu.id} className="mb-2">
+                        <span className="font-semibold text-[#1F2937]">{edu.titulo}</span>
+                        <span className="text-[#6B7280] text-xs ml-2">{edu.institucion} · {edu.fechas}</span>
+                    </div>
                 ))}
             </section>
 
-            <section className='mt-6'>
-                <h3 className="text-lg font-bold text-[#1D4ED8] border-b border-[#1D4ED8] mb-2">SKILLS</h3>
-                <p className='text-sm'>{state.habilidades}</p>
+            {/* Skills */}
+            <section>
+                <h3 className="text-base font-bold text-[#1D4ED8] border-b-2 border-[#1D4ED8] mb-3 pb-1 uppercase tracking-wide">
+                    Skills
+                </h3>
+                <p className="text-[#374151]">{habilidades}</p>
             </section>
         </div>
     );
