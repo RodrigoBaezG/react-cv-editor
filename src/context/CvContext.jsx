@@ -39,7 +39,15 @@ export const initialState = {
 function loadState() {
     try {
         const raw = localStorage.getItem(STORAGE_KEY);
-        return raw ? JSON.parse(raw) : initialState;
+        if (!raw) return initialState;
+        const parsed = JSON.parse(raw);
+        return {
+            personal: { ...initialState.personal, ...(parsed.personal ?? {}) },
+            experiencia: Array.isArray(parsed.experiencia) ? parsed.experiencia : initialState.experiencia,
+            educacion: Array.isArray(parsed.educacion) ? parsed.educacion : initialState.educacion,
+            habilidades: typeof parsed.habilidades === 'string' ? parsed.habilidades : initialState.habilidades,
+            extras: Array.isArray(parsed.extras) ? parsed.extras : initialState.extras,
+        };
     } catch {
         return initialState;
     }
