@@ -29,7 +29,6 @@ function renderWithMock(ui) {
 describe('Template1', () => {
     it('renders the full name', () => {
         renderWithMock(<Template1 />);
-        // uppercase is applied via CSS class, the DOM text is the original value
         expect(screen.getByText('Test User')).toBeInTheDocument();
     });
 
@@ -49,8 +48,45 @@ describe('Template1', () => {
         expect(screen.getByText('React, TS')).toBeInTheDocument();
     });
 
+    it('renders additional section', () => {
+        renderWithMock(<Template1 />);
+        expect(screen.getByText(/Additional/i)).toBeInTheDocument();
+        expect(screen.getByText(/Languages/i)).toBeInTheDocument();
+        expect(screen.getByText(/English \(C1\)/i)).toBeInTheDocument();
+    });
+
+    it('hides additional section when extras is empty', () => {
+        const stateWithoutExtras = { ...mockState, extras: [] };
+        render(
+            <CvContext.Provider value={{ state: stateWithoutExtras, dispatch: () => {} }}>
+                <Template1 />
+            </CvContext.Provider>
+        );
+        expect(screen.queryByText('Additional')).not.toBeInTheDocument();
+    });
+
+    // PDF export requirements
     it('has the id required for PDF export', () => {
         renderWithMock(<Template1 />);
         expect(document.getElementById('cv-preview-template')).not.toBeNull();
+    });
+
+    it('export target uses explicit hex colors (no oklch)', () => {
+        renderWithMock(<Template1 />);
+        const el = document.getElementById('cv-preview-template');
+        // Collect all class names used inside the export target
+        const allClasses = Array.from(el.querySelectorAll('*'))
+            .flatMap(node => Array.from(node.classList));
+        // Tailwind semantic color tokens like "text-slate-900" generate oklch in v4.
+        // The template must use explicit hex arbitrary values instead.
+        const semanticColorPattern = /^(text|bg|border|ring)-(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-\d+$/;
+        const offenders = allClasses.filter(c => semanticColorPattern.test(c));
+        expect(offenders).toEqual([]);
+    });
+
+    it('export target background is white', () => {
+        renderWithMock(<Template1 />);
+        const el = document.getElementById('cv-preview-template');
+        expect(el.classList.contains('bg-white')).toBe(true);
     });
 });

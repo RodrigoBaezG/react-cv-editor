@@ -1,6 +1,6 @@
 // src/layout/AppLayout.jsx
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Editor from '../editor/Editor';
 import Preview from '../preview/Preview';
 import { FaCheck } from 'react-icons/fa';
@@ -11,6 +11,8 @@ function AppLayout() {
     const { state, dispatch } = useCv();
     const [activeTab, setActiveTab] = useState('edit');
     const [saved, setSaved] = useState(false);
+    const [exporting, setExporting] = useState(false);
+    const previewPanelRef = useRef(null);
 
     useEffect(() => {
         setSaved(true);
@@ -18,17 +20,44 @@ function AppLayout() {
         return () => clearTimeout(timer);
     }, [state]);
 
-    const handleExportPdf = () => {
+    const handleExportPdf = async () => {
         const element = document.getElementById('cv-preview-template');
         if (!element) return;
-        const options = {
-            margin: 10,
-            filename: 'curriculum_vitae.pdf',
-            image: { type: 'jpeg', quality: 0.98 },
-            html2canvas: { scale: 2, logging: false, dpi: 192, letterRendering: true },
-            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-        };
-        html2pdf().set(options).from(element).save();
+
+        setExporting(true);
+
+        // On mobile the preview panel may be display:none (hidden class).
+        // html2canvas cannot capture elements inside a display:none container,
+        // so we temporarily override its display style during export.
+        const panel = previewPanelRef.current;
+        const panelWasHidden = panel && getComputedStyle(panel).display === 'none';
+        if (panelWasHidden) {
+            panel.style.display = 'block';
+        }
+
+        try {
+            const options = {
+                margin: 10,
+                filename: 'curriculum_vitae.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: {
+                    scale: 2,
+                    logging: false,
+                    useCORS: true,
+                    dpi: 192,
+                    letterRendering: true,
+                },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+            };
+            await html2pdf().set(options).from(element).save();
+        } catch (err) {
+            console.error('PDF export failed:', err);
+        } finally {
+            if (panelWasHidden) {
+                panel.style.removeProperty('display');
+            }
+            setExporting(false);
+        }
     };
 
     const handleReset = () => {
@@ -59,9 +88,10 @@ function AppLayout() {
                         </button>
                         <button
                             onClick={handleExportPdf}
-                            className="text-xs font-medium bg-slate-900 hover:bg-slate-700 text-white px-3 py-1.5 rounded-md flex items-center gap-1.5 transition-colors"
+                            disabled={exporting}
+                            className="text-xs font-medium bg-slate-900 hover:bg-slate-700 disabled:opacity-50 text-white px-3 py-1.5 rounded-md flex items-center gap-1.5 transition-colors"
                         >
-                            Export PDF
+                            {exporting ? 'Generating…' : 'Export PDF'}
                         </button>
                     </div>
                 </div>
@@ -97,7 +127,10 @@ function AppLayout() {
                     <Editor />
                 </div>
 
-                <div className={`mt-4 lg:mt-0 ${activeTab !== 'preview' ? 'hidden lg:block' : ''}`}>
+                <div
+                    ref={previewPanelRef}
+                    className={`mt-4 lg:mt-0 ${activeTab !== 'preview' ? 'hidden lg:block' : ''}`}
+                >
                     <Preview />
                 </div>
             </div>
